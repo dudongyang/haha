@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01数据接口的调试</title>
+</head>
+<body>
+<div ng-app="app.test">
+    <div ng-controller="mainController">
+        {{data}}
+    </div>
+</div>
+
+
+<script src="../../../../node_modules/angular/angular.js"></script>
+<script>
+    var appTest = angular.module('app.test', []);
+    appTest.controller('mainController', function ($scope, $http) {
+        var url = 'http://api.douban.com/v2/movie/in_theaters?city=上海&start=0&count=1';
+        $http.get(url)
+                .success(function (data) {
+                    $scope.data = data;
+                })
+                .error(function (error) {
+                    console.log(error);
+                });
+//        var jsonpUrl = 'http://api.douban.com/v2/movie/in_theaters?city=上海&start=0&count=1&callback=JSON_CALLBACK';
+//
+//        $http.jsonp(jsonpUrl)
+//                .success(function(data){
+//                    $scope.data = data;
+//                })
+//                .error(function(error){
+//                    console.log(error);
+//                })
+
+    })
+</script>
+</body>
+</html>

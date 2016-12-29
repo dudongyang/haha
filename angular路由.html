@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ziji</title>
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+</head>
+<body ng-app="app">
+
+<div ng-view>
+
+</div>
+
+<script>
+    var app = angular.module('app', ['ngRoute']);
+    // 在使用路由之前，对route服务做一些设置
+    app.config(function ($routeProvider) {
+        $routeProvider
+                .when('/index', {
+                    templateUrl: "./index/index_templ.html",
+                    controller: function ($scope) {
+                        $scope.name = 'index';
+                    }
+                })
+                .when('/about/:name/:age', {
+                    templateUrl: "./about/about_templ.html",
+                    controller: function ($scope, $routeParams) {
+                        $scope.name = 'about';
+                        $scope.name=$routeParams.name;
+                        $scope.age=$routeParams.age;
+                    }
+                })
+                .otherwise({
+                    redirectTo: '/index'
+                })
+    })
+</script>
+</body>
+</html>

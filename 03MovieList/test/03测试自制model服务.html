@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script src="../../../../node_modules/angular/angular.js"></script>
+    <script src="../services/jsonpService.js"></script>
+    <script src="../services/modelService.js"></script>
+</head>
+<body ng-app="test.model">
+<div ng-controller="mainController">
+    即将上映
+    <div ng-repeat="item in data.subjects">
+        {{item.id}},  {{item.title}}
+    </div>
+
+    <br>
+    正在上映
+    <div ng-repeat="item in dataI.subjects">
+        {{item.id}},  {{item.title}}
+    </div>
+    <br>
+    top250
+    <div ng-repeat="item in dataT.subjects">
+        {{item.id}},  {{item.title}}
+    </div>
+</div>
+<script>
+    var test = angular.module('test.model',['ml.model']);
+    test.controller('mainController',function($scope,mlModel){
+        mlModel.getComingSoon(0,5,function(data){
+            $scope.data = data;
+        });
+        mlModel.getInTheaters(0,5,function(data){
+            $scope.dataI = data;
+        });
+        mlModel.getTop250(0,5,function(data){
+            $scope.dataT = data;
+        });
+
+        mlModel.getSubject('21264283',function(data){
+            console.log(data);
+        })
+    })
+
+
+
+
+</script>
+</body>
+</html>

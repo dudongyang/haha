@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script src="../../../../node_modules/angular/angular.js"></script>
+    <script src="../services/jsonpService.js"></script>
+</head>
+<body ng-app="test.jsonp">
+<div ng-controller="mainController">
+    {{data}}
+</div>
+<script>
+    var test = angular.module('test.jsonp',['ml.services.jsonp']);
+    test.controller('mainController',function($scope,mlJsonp){
+        var url = 'http://api.douban.com/v2/movie/in_theaters?city=%E4%B8%8A%E6%B5%B7&start=0&count=1&callback=JSONP_CALLBACK';
+        mlJsonp(url,function(data){
+            $scope.data = data;
+            console.log(data)
+        })
+
+    })
+</script>
+</body>
+</html>
